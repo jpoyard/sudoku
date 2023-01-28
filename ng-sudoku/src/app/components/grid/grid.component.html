@@ -1,0 +1,28 @@
+<div class="container">
+  <ng-container *ngFor="let cell of cells; trackBy: trackById">
+    <div
+      class="cell"
+      [class.highlighted]="cell.highlighted"
+      (mouseenter)="onMouseEnter(cell.id)"
+      (mouseleave)="onMouseLeave(cell.id)"
+    >
+      <div class="value" *ngIf="cell.value != null; else statContainer">
+        {{ cell.value }}
+      </div>
+      <ng-template #statContainer>
+        <div class="stat-container">
+          <ng-container *ngFor="let stat of cell.stats">
+            <div
+              class="stat-value"
+              [style.cursor]="stat.stat > 0 ? 'pointer' : 'auto'"
+              [style.opacity]="stat.stat"
+              (click)="selectValue(cell.id, stat.value)"
+            >
+              {{ stat.value }}
+            </div>
+          </ng-container>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>
